@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title> Boba Tea </title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar('BobaTea')"></nav>
+<div class="container">
+    <h2 class="table" style="text-align: center" th:text="'Add ' + ${boba.name} + ' to Store'"></h2>
+    <br>
+    <form th:action="@{/boba/} + ${boba.id} + @{/assign-store}" method="POST">
+        <input type="hidden" th:field="*{boba.id}"/>
+        <table class="table" style="text-align: center">
+            <thead class="bg-info">
+            <tr>
+                <th></th>
+                <th>Store Code</th>
+                <th>Name</th>
+                <th>Address</th>
+                <th>Operational Hour</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="store : ${listStore}">
+                <td>
+                    <input class="form-check" type="checkbox"
+                           th:value="${store.id}" name="storesId">
+                </td>
+                <td th:text="${store.store_code}"></td>
+                <td th:text="${store.name}"></td>
+                <td th:text="${store.address}"></td>
+                <td th:text="${store.open_hour} + ' - ' + ${store.close_hour}"></td>
+            </tr>
+            </tbody>
+        </table>
+        <button class="mx-2 btn btn-info" type="submit">Confirm</button>
+        <a class="mx-2 btn btn-dark" href="/boba">Cancel</a>
+    </form>
+</div>
+
+</body>
+</html>

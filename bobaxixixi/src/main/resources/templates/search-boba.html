@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title> Boba Tea </title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+
+<body>
+<nav th:replace="fragments/fragment :: navbar('Search')"></nav>
+<div class="container">
+    <div class="card m-4 p-4">
+        <div class="card-body">
+            <div class="justify-content-center">
+                <form th:action="@{/search}" method="GET">
+                    <h2 style="text-align: center">Find Available Boba Variant by Topping</h2>
+                    <br>
+                    Boba Name : <br>
+                    <select class="form-control" name="bobaName">
+                        <option selected disabled>--Select Boba Tea Name--</option>
+                        <div th:each="boba : ${listBoba}">
+                            <option th:text="${boba.name}" th:value="${boba.name}"></option>
+                        </div>
+                    </select>
+                    <br><br>
+
+                    Topping : <br>
+                    <select class="form-control" name="topping">
+                        <option selected disabled>--Select Topping Name--</option>
+                        <div th:each="topping : ${listTopping}">
+                            <option th:text="${topping.name}" th:value="${topping.name}"></option>
+                        </div>
+                    </select>
+                    <br>
+                    <button class="mx-2 btn btn-info" type="submit">Search</button>
+                </form>
+                <br>
+                <table class="table" style="text-align: center">
+                    <thead class="bg-info">
+                    <tr>
+                        <th>No</th>
+                        <th>Price</th>
+                        <th>Size</th>
+                        <th>Ice</th>
+                        <th>Sugar</th>
+                        <th>Store Name</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="storeboba, iterationStatus : ${storeBoba}">
+                        <td th:text="${iterationStatus.count}"></td>
+                        <td th:text="${storeboba.boba_Tea.price}"></td>
+                        <td th:if="${storeboba.boba_Tea.size} == 0">S</td>
+                        <td th:if="${storeboba.boba_Tea.size} == 1">M</td>
+                        <td th:if="${storeboba.boba_Tea.size} == 2">L</td>
+                        <td th:if="${storeboba.boba_Tea.ice_level} == 0">Less</td>
+                        <td th:if="${storeboba.boba_Tea.ice_level} == 1">Normal</td>
+                        <td th:if="${storeboba.boba_Tea.ice_level} == 2">Extra</td>
+                        <td th:if="${storeboba.boba_Tea.sugar_level} == 0">Less</td>
+                        <td th:if="${storeboba.boba_Tea.sugar_level} == 1">Normal</td>
+                        <td th:if="${storeboba.boba_Tea.sugar_level} == 2">Extra</td>
+                        <td th:text="${storeboba.store.name}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

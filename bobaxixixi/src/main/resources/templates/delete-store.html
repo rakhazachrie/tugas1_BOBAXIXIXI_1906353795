@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title> Boba Tea </title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+
+<body>
+<nav th:replace="fragments/fragment :: navbar('Store')"></nav>
+<div class="container">
+    <div class="card m-4 p-4 bg-info">
+        <div class="card-body">
+            <div class="justify-content-center">
+                <h2 style="color: white">Store is successfully deleted!</h2>
+            </div>
+        </div>
+    </div>
+</div>
+<a class="mx-2 btn btn-info" href="/store">Back to store list</a>
+
+</body>
+</html>

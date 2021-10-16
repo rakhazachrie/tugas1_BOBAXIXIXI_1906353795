@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title> Home </title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+
+<body >
+<nav th:replace="fragments/fragment :: navbar('Home')"></nav>
+
+<div class="d-flex justify-content-center">
+    <div class="m-4">
+        <h2>Welcome to Boba <span class="badge bg-info">XIXIXI</span></h2>
+        <br><br>
+        <div class="my-3 d-flex justify-content-center">
+            <a th:href="@{/store}" class="mx-2 btn btn-info">List of Store</a>
+            <a th:href="@{/search}" class="mx-2 btn btn-outline-info">Search</a>
+        </div>
+        <div class="my-3 d-flex justify-content-center">
+            <a th:href="@{/boba}" class="mx-2 btn btn-info">List of Boba Tea</a>
+            <a th:href="@{/filter/manager}" class="mx-2 btn btn-outline-info">Filter</a>
+        </div>
+    </div>
+</div>
+
+</body>
+
+</html>

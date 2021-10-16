@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title> Manager </title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+
+<body>
+<nav th:replace="fragments/fragment :: navbar('Filter')"></nav>
+<div class="container">
+    <div class="card m-4 p-4">
+        <div class="card-body">
+            <div class="justify-content-center">
+                <form th:action="@{/filter/manager}" method="GET">
+                    <h2 style="text-align: center">Filter Manager</h2>
+                    <select class="form-control" name="nameBoba">
+                        <option selected disabled value="">--Select Boba Tea Name--</option>
+                        <div th:each="bobas : ${listBoba}" th:object="${listBoba}">
+                            <option th:text="${bobas.name}" th:value="${bobas.name}" ></option>
+                        </div>
+                    </select>
+                    <br>
+                    <button class="mx-2 btn btn-info" type="submit">Search</button>
+                </form>
+                    <br>
+                    <table class="table" style="text-align: center">
+                        <thead class="bg-info">
+                        <tr>
+                            <th>No</th>
+                            <th>Name</th>
+                            <th>Gender</th>
+                            <th>Date of Birth</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="storeboba, iterationStatus : ${storeBoba}">
+                            <td th:text="${iterationStatus.count}"></td>
+                            <td th:text="${storeboba.store.manager.full_name}"></td>
+                            <td th:if="${storeboba.store.manager.gender} == 0">Perempuan</td>
+                            <td th:if="${storeboba.store.manager.gender} == 1">Laki-laki</td>
+                            <td th:text="${storeboba.store.manager.date_of_birth}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+<!--                <a class="mx-2 btn btn-info" th:href="@{/filter/manager(nameBoba=${nameBoba})}">Search</a>-->
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

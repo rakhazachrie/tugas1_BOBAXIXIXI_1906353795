@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <title> Store </title>
+  <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+  <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar('Store')"></nav>
+<div class="container">
+  <div class="card m-4 p-4">
+    <div class="card-body">
+      <div class="justify-content-center">
+        <h2 style="text-align: center">Store Detail</h2>
+        <br>
+        <p th:text="'Store Name : ' + ${store.name}"></p>
+        <p th:text="'Store Code : ' + ${store.store_code}"></p>
+        <p th:text="'Address : ' + ${store.address}"></p>
+        <p th:text="'Open Hour : ' + ${store.open_hour}"></p>
+        <p th:text="'Waktu Tutup : ' + ${store.close_hour}"></p>
+        <p th:text="'Manager : ' + ${manager.full_name}"></p>
+      </div>
+    </div>
+  </div>
+  <h2 style="text-align: center">List of Boba Tea</h2>
+  <a th:href="@{/store/} + ${store.id} + @{/assign-boba}" class="mx-2 btn btn-outline-info">+ Add Boba to Store</a>
+  <div th:if="*{storeBoba.size() != 0}">
+    <table class="table" style="text-align: center">
+      <thead class="bg-info">
+      <tr>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Size</th>
+        <th>Sugar</th>
+        <th>Ice</th>
+        <th>Topping</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="storeboba : ${storeBoba}">
+        <td th:text="${storeboba.boba_Tea.name}"></td>
+        <td th:text="'Rp ' + ${storeboba.boba_Tea.price}"></td>
+        <td th:if="${storeboba.boba_Tea.size} == 0">S</td>
+        <td th:if="${storeboba.boba_Tea.size} == 1">M</td>
+        <td th:if="${storeboba.boba_Tea.size} == 2">L</td>
+        <td th:if="${storeboba.boba_Tea.ice_level} == 0">Less</td>
+        <td th:if="${storeboba.boba_Tea.ice_level} == 1">Normal</td>
+        <td th:if="${storeboba.boba_Tea.ice_level} == 2">Extra</td>
+        <td th:if="${storeboba.boba_Tea.sugar_level} == 0">Less</td>
+        <td th:if="${storeboba.boba_Tea.sugar_level} == 1">Normal</td>
+        <td th:if="${storeboba.boba_Tea.sugar_level} == 2">Extra</td>
+        <td th:text="${storeboba.boba_Tea.topping.name}"></td>
+  </div>
+
+</div>
+
+</body>
+</html>

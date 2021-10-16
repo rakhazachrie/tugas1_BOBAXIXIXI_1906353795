@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title> Boba Tea </title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+
+<body>
+<nav th:replace="fragments/fragment :: navbar('BobaTea')"></nav>
+<div class="container">
+    <h2 class="table" style="text-align: center">List of Boba Tea</h2>
+    <br>
+    <a th:href="@{/boba/add}" class="mx-2 btn btn-outline-info">+ Add Boba Tea</a>
+    <table class="table" style="text-align: center">
+        <thead class="bg-info">
+        <tr>
+            <th>No</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Size</th>
+            <th>Sugar</th>
+            <th>Ice</th>
+            <th>Topping</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="boba, iterationStatus : ${listBoba}">
+            <td th:text="${iterationStatus.count}"></td>
+            <td th:text="${boba.name}"></td>
+            <td th:text="'Rp ' + ${boba.price}"></td>
+            <td th:if="${boba.size} == 0">S</td>
+            <td th:if="${boba.size} == 1">M</td>
+            <td th:if="${boba.size} == 2">L</td>
+            <td th:if="${boba.sugar_level} == 0">Less</td>
+            <td th:if="${boba.sugar_level} == 1">Normal</td>
+            <td th:if="${boba.sugar_level} == 2">Extra</td>
+            <td th:if="${boba.ice_level} == 0">Less</td>
+            <td th:if="${boba.ice_level} == 1">Normal</td>
+            <td th:if="${boba.ice_level} == 2">Extra</td>
+            <td th:text="${boba.topping.name}"></td>
+            <td>
+                <a class="mx-2 btn btn-outline-success" th:href="@{/boba/} + ${boba.id} + @{/assign-store}">Assign</a>
+                <a class="mx-2 btn btn-outline-warning" th:href="@{/boba/update/} + ${boba.id}">Update</a>
+                <a class="mx-2 btn btn-outline-danger" th:href="@{/boba/delete/} + ${boba.id}">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>

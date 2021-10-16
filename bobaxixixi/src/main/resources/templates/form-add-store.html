@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title> Store </title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+
+<body>
+<nav th:replace="fragments/fragment :: navbar('Store')"></nav>
+<div class="container">
+    <div class="card m-4 p-4">
+        <div class="card-body">
+            <div class="justify-content-center">
+                <h2 style="text-align: center">Add New Store</h2>
+                <br>
+                <form th:action="@{/store/add}" th:object="${store}" method="POST">
+                    Store Name : <br>
+                    <input required class="form-control" type="text" name="name"/>
+                    <br><br>
+
+                    Manager's Name : <br>
+                    <select th:field="*{manager}" class="form-control">
+                        <div th:each="manager : ${listManager}">
+                            <option th:text="${manager.full_name}" th:value="${manager.id}" name="id_manager"></option>
+                        </div>
+                    </select>
+                    <br><br>
+
+                    Address : <br>
+                    <input required class="form-control" type="text" name="address"/>
+                    <br><br>
+
+                    Open Hour : <br>
+                    <input required class="form-control" type="time" name="open_hour" />
+                    <br><br>
+
+                    Close Hour : <br>
+                    <input required class="form-control" type="time" name="close_hour" />
+                    <br><br>
+
+                    <input type="hidden" th:value="*{store_code}">
+
+                    <button class="mx-2 btn btn-info" type="submit">Save</button>
+                    <a class="mx-2 btn btn-dark" href="/store">Cancel</a>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

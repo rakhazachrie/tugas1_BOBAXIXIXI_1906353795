@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title> Store </title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+
+<body>
+<nav th:replace="fragments/fragment :: navbar('store')"></nav>
+<div class="container">
+    <h2 class="table" style="text-align: center" th:text="'Add Boba Tea to ' + ${store.name}"></h2>
+    <br>
+    <form th:action="@{/store/} + ${store.id} + @{/assign-boba}" method="POST">
+        <input type="hidden" th:field="*{store.id}"/>
+        <table class="table" style="text-align: center">
+            <thead>
+            <tr>
+                <th></th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Size</th>
+                <th>Sugar</th>
+                <th>Ice</th>
+                <th>Topping</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="boba : ${listBoba}">
+                <td>
+                    <input class="form-check" type="checkbox"
+                           th:value="${boba.id}" name="bobas">
+                </td>
+                <td th:text="${boba.name}"></td>
+                <td th:text="'Rp ' + ${boba.price}"></td>
+                <td th:if="${boba.size} == 0">S</td>
+                <td th:if="${boba.size} == 1">M</td>
+                <td th:if="${boba.size} == 2">L</td>
+                <td th:if="${boba.ice_level} == 0">Less</td>
+                <td th:if="${boba.ice_level} == 1">Normal</td>
+                <td th:if="${boba.ice_level} == 2">Extra</td>
+                <td th:if="${boba.sugar_level} == 0">Less</td>
+                <td th:if="${boba.sugar_level} == 1">Normal</td>
+                <td th:if="${boba.sugar_level} == 2">Extra</td>
+                <td th:text="${boba.topping.name}"></td>
+            </tr>
+            </tbody>
+        </table>
+<!--        <input name="id_store" type="hidden" th:value="${store.id}"/>-->
+            <button class="mx-2 btn btn-info" type="submit">Confirm</button>
+            <a class="mx-2 btn btn-dark" href="/store">Cancel</a>
+    </form>
+</div>
+
+</body>
+</html>
